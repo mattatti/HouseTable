@@ -1,6 +1,7 @@
 // src/components/UpdateHouseForm.tsx
 import React, {useState} from 'react';
 import {API_BASE_URL} from "../config";
+import {Link} from "react-router-dom";
 
 interface House {
     id: number;
@@ -79,6 +80,10 @@ export const UpdateHouseForm: React.FC<Props> = ({house, onUpdate}) => {
                     />
                 </div>
                 <button type="submit">Update</button>
+
+                <div>
+                    <Link to="/">Back to main page</Link>
+                </div>
             </form>
         </div>
     );

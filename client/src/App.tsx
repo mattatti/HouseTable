@@ -1,20 +1,34 @@
 // src/App.tsx
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import {Link, Route, Routes, useLocation} from 'react-router-dom';
 import NewHouseForm from './components/NewHouseForm';
 import {HouseDetail} from "./components/HouseDetail";
 
 function App() {
-  return (
-      <Router>
+    const location = useLocation();
+    const showNavLinks = location.pathname === '/';
+    return (
         <div>
-          <Routes>
-            <Route path="/" element={<NewHouseForm/>} />
-            <Route path="/houses/:id" element={<HouseDetail/>} />
-          </Routes>
+            {showNavLinks && (
+            <nav>
+                <ul>
+                    <li>
+                        <Link to="/new-house">New House</Link>
+                    </li>
+                    <li>
+                        <Link to="/update-house">Update House</Link>
+                    </li>
+                </ul>
+            </nav>
+            )}
+                <Routes>
+                    <Route path="/new-house" element={<NewHouseForm/>}/>
+                    <Route path="/update-house/:id" element={<HouseDetail/>}/>
+                </Routes>
+
+
         </div>
-      </Router>
-  );
+    );
 }
 
 export default App;

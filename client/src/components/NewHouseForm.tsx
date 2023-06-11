@@ -1,6 +1,7 @@
 // src/components/NewHouseForm.tsx
 import React, { useState } from 'react';
 import {API_BASE_URL} from "../config";
+import {Link} from "react-router-dom";
 
 
 const NewHouseForm = () => {
@@ -75,6 +76,10 @@ const NewHouseForm = () => {
                     />
                 </div>
                 <button type="submit">Submit</button>
+
+                <div>
+                    <Link to="/">Back to main page</Link>
+                </div>
             </form>
         </div>
     );

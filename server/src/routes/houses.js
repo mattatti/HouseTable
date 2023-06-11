@@ -2,7 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const House = require('../models/House');
- 
+
 // Create a new house record
 router.post('/', async (req, res) => {
     try {

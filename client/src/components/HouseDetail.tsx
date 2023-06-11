@@ -1,6 +1,6 @@
 // src/components/HouseDetail.tsx
 import React, {useEffect, useState} from 'react';
-import {useParams} from 'react-router-dom';
+import {useParams, Link} from 'react-router-dom';
 import {UpdateHouseForm} from './UpdateHouseForm';
 import {API_BASE_URL} from "../config";
 
@@ -49,8 +49,13 @@ export const HouseDetail = () => {
             <p>Address: {house.address}</p>
             <p>Current Value: {house.currentValue}</p>
             <p>Loan Amount: {house.loanAmount}</p>
-            <p>Risk: {(house.risk*100).toFixed(2)}%</p>
+            <p>Risk: {(house.risk * 100).toFixed(2)}%</p>
             <UpdateHouseForm house={house} onUpdate={handleUpdate}/>
+
+            <div>
+                <Link to={`/update-house/${id}`}>Update House</Link>
+            </div>
         </div>
-    );
+
+  );
 };
