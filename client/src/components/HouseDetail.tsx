@@ -1,6 +1,6 @@
 // src/components/HouseDetail.tsx
 import React, {useEffect, useState} from 'react';
-import {useParams, Link} from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 import {UpdateHouseForm} from './UpdateHouseForm';
 import {API_BASE_URL} from "../config";
 
@@ -24,9 +24,11 @@ export const HouseDetail = () => {
                     const data = await response.json();
                     setHouse(data);
                 } else {
+                    alert(`House with ID ${id} doesn't exist`);
                     console.error('Error:', response.status);
                 }
             } catch (error) {
+
                 console.error('Error:', error);
             }
         };
@@ -51,10 +53,6 @@ export const HouseDetail = () => {
             <p>Loan Amount: {house.loanAmount}</p>
             <p>Risk: {(house.risk * 100).toFixed(2)}%</p>
             <UpdateHouseForm house={house} onUpdate={handleUpdate}/>
-
-            <div>
-                <Link to={`/update-house/${id}`}>Update House</Link>
-            </div>
         </div>
 
   );

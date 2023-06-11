@@ -19,11 +19,11 @@ interface Props {
 export const UpdateHouseForm: React.FC<Props> = ({house, onUpdate}) => {
     const [address, setAddress] = useState(house.address);
     const [currentValue, setCurrentValue] = useState(house.currentValue);
-    const [loanAmount, setLoanAmount] = useState('');
+    const [loanAmount, setLoanAmount] = useState(house.loanAmount);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        console.log()
+
         try {
             const response = await fetch(`${API_BASE_URL}/api/houses/${house.id}`, {
                 method: 'PUT',
@@ -41,6 +41,7 @@ export const UpdateHouseForm: React.FC<Props> = ({house, onUpdate}) => {
                 const updatedHouse = await response.json();
                 onUpdate(updatedHouse);
             } else {
+
                 console.error('Error:', response.status);
             }
         } catch (error) {
@@ -75,7 +76,7 @@ export const UpdateHouseForm: React.FC<Props> = ({house, onUpdate}) => {
                     <input
                         type="number"
                         value={loanAmount}
-                        onChange={(e) => setLoanAmount(e.target.value)}
+                        onChange={(e) => setLoanAmount(Number(e.target.value))}
                         required
                     />
                 </div>
