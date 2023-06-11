@@ -4,7 +4,7 @@ const router = express.Router();
 const House = require('../models/House');
 
 // Create a new house record
-router.post('/', async (req, res) => {
+router.post('/api/houses/', async (req, res) => {
     try {
         const { address, currentValue, loanAmount } = req.body;
 

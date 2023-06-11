@@ -1,6 +1,9 @@
 import express, {Express} from 'express';
 import dotenv, {} from 'dotenv';
+
 dotenv.config();
+import {sequelize} from './src/models/House';
+
 const housesRouter = require('./src/routes/houses.js');
 
 const app: Express = express();
@@ -18,3 +21,7 @@ app.use('/api/houses', housesRouter);
 app.listen(port, () => {
     console.log(`⚡️[server]: Server is running at ${host}:${port}`);
 });
+
+(async () => {
+    await sequelize.sync({})
+})();

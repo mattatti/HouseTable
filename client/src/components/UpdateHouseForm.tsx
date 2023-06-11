@@ -1,5 +1,6 @@
 // src/components/UpdateHouseForm.tsx
 import React, {useState} from 'react';
+import {API_BASE_URL} from "../config";
 
 interface House {
     id: number;
@@ -20,9 +21,9 @@ export const UpdateHouseForm: React.FC<Props> = ({house, onUpdate}) => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-
+        console.log()
         try {
-            const response = await fetch(`/api/houses/${house.id}`, {
+            const response = await fetch(`${API_BASE_URL}/api/houses/${house.id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

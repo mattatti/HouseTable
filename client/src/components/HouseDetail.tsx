@@ -2,6 +2,7 @@
 import React, {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
 import {UpdateHouseForm} from './UpdateHouseForm';
+import {API_BASE_URL} from "../config";
 
 interface House {
     id: number;
@@ -18,7 +19,7 @@ export const HouseDetail = () => {
     useEffect(() => {
         const fetchHouseDetails = async () => {
             try {
-                const response = await fetch(`/api/houses/${id}`);
+                const response = await fetch(`${API_BASE_URL}/api/houses/${id}`);
                 if (response.ok) {
                     const data = await response.json();
                     setHouse(data);
