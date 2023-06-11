@@ -18,6 +18,7 @@ interface Props {
 export const UpdateHouseForm: React.FC<Props> = ({house, onUpdate}) => {
     const [address, setAddress] = useState(house.address);
     const [currentValue, setCurrentValue] = useState(house.currentValue);
+    const [loanAmount, setLoanAmount] = useState('');
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -31,6 +32,7 @@ export const UpdateHouseForm: React.FC<Props> = ({house, onUpdate}) => {
                 body: JSON.stringify({
                     address,
                     currentValue: currentValue,
+                    loanAmount: loanAmount
                 }),
             });
 
@@ -64,6 +66,15 @@ export const UpdateHouseForm: React.FC<Props> = ({house, onUpdate}) => {
                         type="number"
                         value={currentValue}
                         onChange={(e) => setCurrentValue(Number(e.target.value))}
+                        required
+                    />
+                </div>
+                <div>
+                    <label>Loan Amount:</label>
+                    <input
+                        type="number"
+                        value={loanAmount}
+                        onChange={(e) => setLoanAmount(e.target.value)}
                         required
                     />
                 </div>

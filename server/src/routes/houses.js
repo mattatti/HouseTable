@@ -2,14 +2,12 @@
 const express = require('express');
 const router = express.Router();
 const House = require('../models/House');
-
+ 
 // Create a new house record
-router.post('/api/houses/', async (req, res) => {
+router.post('/', async (req, res) => {
     try {
-        const { address, currentValue, loanAmount } = req.body;
-
-        // Calculate the risk percentage for the loan
-        const risk = (loanAmount / currentValue) * 100;
+        const {address, currentValue, loanAmount} = req.body;
+        const risk = calculateRisk(currentValue, loanAmount);
 
         // Create the new house record
         const house = await House.create({
@@ -21,7 +19,7 @@ router.post('/api/houses/', async (req, res) => {
 
         res.status(201).json(house);
     } catch (error) {
-        res.status(500).json({ error: 'Internal server error' });
+        res.status(500).json({error: 'Internal server error'});
     }
 });
 
@@ -32,42 +30,48 @@ router.get('/:id', async (req, res) => {
         if (house) {
             res.json(house);
         } else {
-            res.status(404).json({ error: 'House not found' });
+            res.status(404).json({error: 'House not found'});
         }
     } catch (error) {
-        res.status(500).json({ error: 'Internal server error' });
+        res.status(500).json({error: 'Internal server error'});
     }
 });
 
 // Update a house record by ID
 router.put('/:id', async (req, res) => {
     try {
-        const { address, currentValue, loanAmount } = req.body;
+        const {id} = req.params;
+        const {address, currentValue, loanAmount} = req.body;
+        const house = await House.findByPk(id);
 
-        // Calculate the risk percentage for the loan
-        const risk = (loanAmount / currentValue) * 100;
-
-        const [updatedRowsCount, [updatedHouse]] = await House.update(
-            {
-                address,
-                currentValue,
-                loanAmount,
-                risk,
-            },
-            {
-                where: { id: req.params.id },
-                returning: true,
-            }
-        );
-
-        if (updatedRowsCount === 0) {
-            res.status(404).json({ error: 'House not found' });
-        } else {
-            res.json(updatedHouse);
+        if (!house) {
+            return res.status(404).json({error: 'House not found'});
         }
+
+        const risk = calculateRisk(currentValue, loanAmount);
+
+        house.address = address;
+        house.currentValue = currentValue;
+        house.loanAmount = loanAmount;
+        house.risk = risk;
+
+        await house.save();
+
+        res.json(house);
     } catch (error) {
-        res.status(500).json({ error: 'Internal server error' });
+        console.error('Error:', error);
+        res.status(500).json({error: 'Internal Server Error'});
     }
 });
+
+const calculateRisk = (currentValue, loanAmount) => {
+    let risk = loanAmount / currentValue;
+
+    if (loanAmount > 0.5 * currentValue) {
+        risk += 0.1;
+    }
+
+    return Math.min(risk, 1);
+};
 
 module.exports = router;

@@ -49,7 +49,7 @@ export const HouseDetail = () => {
             <p>Address: {house.address}</p>
             <p>Current Value: {house.currentValue}</p>
             <p>Loan Amount: {house.loanAmount}</p>
-            <p>Risk: {house.risk}%</p>
+            <p>Risk: {(house.risk*100).toFixed(2)}%</p>
             <UpdateHouseForm house={house} onUpdate={handleUpdate}/>
         </div>
     );
