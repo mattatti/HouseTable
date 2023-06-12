@@ -1,7 +1,7 @@
 // src/components/UpdateHouseForm.tsx
 import React, {useState} from 'react';
-import {API_BASE_URL} from "../config";
 import {Link} from "react-router-dom";
+import {API_BASE_URL} from "../config";
 
 interface House {
     id: number;
@@ -49,43 +49,46 @@ export const UpdateHouseForm: React.FC<Props> = ({house, onUpdate}) => {
         }
     };
 
-    return (
-        <div>
-            <h2>Update House Details</h2>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label>Address:</label>
-                    <input
-                        type="text"
-                        value={address}
-                        onChange={(e) => setAddress(e.target.value)}
-                        required
-                    />
-                </div>
-                <div>
-                    <label>Current Value:</label>
-                    <input
-                        type="number"
-                        value={currentValue}
-                        onChange={(e) => setCurrentValue(Number(e.target.value))}
-                        required
-                    />
-                </div>
-                <div>
-                    <label>Loan Amount:</label>
-                    <input
-                        type="number"
-                        value={loanAmount}
-                        onChange={(e) => setLoanAmount(Number(e.target.value))}
-                        required
-                    />
-                </div>
-                <button type="submit">Update</button>
+    return <>
+        <h2>Update House Details</h2>
 
-                <div>
-                    <Link to="/">Back to main page</Link>
-                </div>
-            </form>
-        </div>
-    );
+        <form onSubmit={handleSubmit}>
+
+            <div>
+                <label>Address:</label>
+                <input
+                    type="text"
+                    value={address}
+                    onChange={(e) => setAddress(e.target.value)}
+                    required
+                />
+            </div>
+
+            <div>
+                <label>Current Value:</label>
+                <input
+                    type="number"
+                    value={currentValue}
+                    onChange={(e) => setCurrentValue(Number(e.target.value))}
+                    required
+                />
+            </div>
+
+            <div style={{paddingBottom: 10}}>
+                <label>Loan Amount:</label>
+                <input
+                    type="number"
+                    value={loanAmount}
+                    onChange={(e) => setLoanAmount(Number(e.target.value))}
+                    required
+                />
+            </div>
+
+            <button type="submit">Update</button>
+
+            <div style={{paddingTop: 10}}>
+                <Link to="/">Back to main page</Link>
+            </div>
+        </form>
+    </>;
 };

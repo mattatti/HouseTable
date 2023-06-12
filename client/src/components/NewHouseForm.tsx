@@ -1,8 +1,7 @@
 // src/components/NewHouseForm.tsx
-import React, { useState } from 'react';
-import {API_BASE_URL} from "../config";
+import React, {useState} from 'react';
 import {Link} from "react-router-dom";
-
+import {API_BASE_URL} from "../config";
 
 const NewHouseForm = () => {
     const [address, setAddress] = useState('');
@@ -44,45 +43,48 @@ const NewHouseForm = () => {
         }
     };
 
-    return (
-        <div>
-            <h2>Add New House</h2>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label>Address:</label>
-                    <input
-                        type="text"
-                        value={address}
-                        onChange={(e) => setAddress(e.target.value)}
-                        required
-                    />
-                </div>
-                <div>
-                    <label>Current Value:</label>
-                    <input
-                        type="number"
-                        value={currentValue}
-                        onChange={(e) => setCurrentValue(e.target.value)}
-                        required
-                    />
-                </div>
-                <div>
-                    <label>Loan Amount:</label>
-                    <input
-                        type="number"
-                        value={loanAmount}
-                        onChange={(e) => setLoanAmount(e.target.value)}
-                        required
-                    />
-                </div>
-                <button type="submit">Submit</button>
+    return <>
+        <h2>Add New House</h2>
 
-                <div>
-                    <Link to="/">Back to main page</Link>
-                </div>
-            </form>
-        </div>
-    );
+        <form onSubmit={handleSubmit}>
+
+            <div>
+                <label>Address: </label>
+                <input
+                    type="text"
+                    value={address}
+                    onChange={(e) => setAddress(e.target.value)}
+                    required
+                />
+            </div>
+
+            <div>
+                <label>Current Value: </label>
+                <input
+                    type="number"
+                    value={currentValue}
+                    onChange={(e) => setCurrentValue(e.target.value)}
+                    required
+                />
+            </div>
+
+            <div style={{paddingBottom: 10}}>
+                <label>Loan Amount: </label>
+                <input
+                    type="number"
+                    value={loanAmount}
+                    onChange={(e) => setLoanAmount(e.target.value)}
+                    required
+                />
+            </div>
+
+            <button type="submit">Submit</button>
+
+            <div style={{paddingTop: 10}}>
+                <Link to="/">Back to main page</Link>
+            </div>
+        </form>
+    </>;
 };
 
 export default NewHouseForm;

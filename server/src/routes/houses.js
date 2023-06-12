@@ -64,6 +64,8 @@ router.put('/:id', async (req, res) => {
     }
 });
 
+//Calculating the risk, if the loan amount is greater than 50%  increase the risk by 10%
+//Risk is a value between 0 and 1
 const calculateRisk = (currentValue, loanAmount) => {
     let risk = loanAmount / currentValue;
 

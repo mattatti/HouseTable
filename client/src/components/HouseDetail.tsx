@@ -1,6 +1,6 @@
 // src/components/HouseDetail.tsx
 import React, {useEffect, useState} from 'react';
-import {useParams} from 'react-router-dom';
+import {Link, useParams} from 'react-router-dom';
 import {UpdateHouseForm} from './UpdateHouseForm';
 import {API_BASE_URL} from "../config";
 
@@ -14,6 +14,7 @@ interface House {
 
 export const HouseDetail = () => {
     const {id} = useParams<{ id: string }>();
+
     const [house, setHouse] = useState<House | null>(null);
 
     useEffect(() => {
@@ -33,27 +34,31 @@ export const HouseDetail = () => {
             }
         };
 
-        fetchHouseDetails().catch();
+        fetchHouseDetails().catch(console.error);
     }, [id]);
 
     const handleUpdate = (updatedHouse: House) => {
         setHouse(updatedHouse);
     };
 
-    if (!house) {
-        return <div>Loading...</div>;
-    }
-
-    return (
-        <div>
-            <h2>House Details</h2>
-            <p>ID: {house.id}</p>
-            <p>Address: {house.address}</p>
-            <p>Current Value: {house.currentValue}</p>
-            <p>Loan Amount: {house.loanAmount}</p>
-            <p>Risk: {(house.risk * 100).toFixed(2)}%</p>
-            <UpdateHouseForm house={house} onUpdate={handleUpdate}/>
-        </div>
-
-  );
+    return <>
+        {!house ?
+            <>
+                <div>Please go back to the previous page.</div>
+                <div style={{paddingTop: 10}}>
+                    <Link to="/">Back</Link>
+                </div>
+            </>
+            :
+            <>
+                <h2>House Details</h2>
+                <p>ID: {house.id}</p>
+                <p>Address: {house.address}</p>
+                <p>Current Value: {house.currentValue}</p>
+                <p>Loan Amount: {house.loanAmount}</p>
+                <p>Risk: {(house.risk * 100).toFixed(2)}%</p>
+                <UpdateHouseForm house={house} onUpdate={handleUpdate}/>
+            </>
+        }
+    </>;
 };
